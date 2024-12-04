@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="bg-[#F8F8F8] h-screen flex items-center">
+    <div class="container mx-auto px-4 flex flex-col justify-center items-center">
+        <!-- Title -->
+        <div class="text-center mb-6">
+            <h2 class="text-2xl md:text-3xl font-bold text-[#222]">Our Facilities</h2>
+        </div>
+
+        <!-- Facilities Cards Container -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full" style="max-height: 75%;">
+            {% for facility in facilities|slice:":8" %} <!-- Limit facilities to 8 items -->
+            <a href="{{ facility.get_absolute_url }}" class="block bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 hover:shadow-xl">
+                <!-- Facility Image -->
+                {% if facility.image %}
+                <img src="{{ facility.image.url }}" alt="{{ facility.title }}" class="w-full h-32 object-cover">
+                {% endif %}
+
+                <!-- Facility Content -->
+                <div class="p-4 text-center">
+                    <h3 class="text-sm md:text-base font-semibold text-[#222] mb-2">{{ facility.title }}</h3>
+                </div>
+            </a>
+            {% empty %}
+            <p class="text-center text-[#7B7B7B] col-span-full">No facilities available.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

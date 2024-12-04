@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="bg-gray-100 py-10 mb-[-25px]">
+    <div class="container mx-auto px-6 lg:px-12">
+        <!-- Back Button -->
+        <div class="mb-4">
+            <a href="{{ back_url }}" class="text-blue-600 hover:text-blue-800 font-semibold inline-flex items-center">
+                &larr; Back to All Categories
+            </a>
+        </div>
+
+        <!-- Products List -->
+        <div class="flex flex-col gap-6">
+            {% for product in products %}
+            <div class="bg-white rounded-xl shadow-xl overflow-hidden flex flex-col lg:flex-row items-center lg:items-start gap-6 p-6">
+                <!-- Product Main Image -->
+                <div class="flex-shrink-0 w-full lg:w-2/5 h-[350px] relative rounded-lg overflow-hidden shadow-md">
+                    <img id="main-image-{{ product.id }}"
+                         src="{% if product.images.exists %}{{ product.images.all.0.image.url }}{% else %}{{ product.image.url }}{% endif %}"
+                         alt="{{ product.name }}"
+                         class="w-full h-full object-contain rounded-lg cursor-pointer"
+                         data-images='[
+                             {% if product.images.exists %}
+                                 {% for image in product.images.all %}
+                                     "{{ image.image.url|escapejs }}"{% if not forloop.last %},{% endif %}
+                                 {% endfor %}
+                             {% else %}
+                                 "{{ product.image.url|escapejs }}"
+                             {% endif %}
+                         ]'
+                         onclick="openModal('{{ product.id }}')">
+                </div>
+
+                <!-- Product Info -->
+                <div class="w-full lg:w-3/5">
+                    <h3 class="text-3xl font-bold text-gray-800 mb-4">{{ product.name }}</h3>
+                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">{{ product.description|safe }}</p>
+
+                    <!-- Thumbnail Gallery -->
+                    {% if product.images.exists %}
+                    <div class="flex overflow-x-auto gap-2 mt-20">
+                        {% for image in product.images.all %}
+                        <img src="{{ image.image.url }}"
+                             alt="{{ product.name }}"
+                             class="w-24 h-24 object-cover rounded-lg cursor-pointer"
+                             onclick="updateMainImage('{{ image.image.url }}', '{{ product.id }}')">
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-gray-500 text-center">No products available in this category at the moment.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Modal -->
+<div id="image-modal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50" role="dialog" aria-modal="true">
+    <div class="relative bg-white rounded-lg shadow-lg max-w-4xl w-full p-6">
+        <!-- Close Button -->
+        <button onclick="closeModal()" class="absolute top-3 right-3 bg-gray-300 rounded-full p-2 hover:bg-gray-400 text-black" aria-label="Close modal">
+            &times;
+        </button>
+
+        <!-- Modal Content -->
+        <div class="flex flex-col items-center" id="modal-content">
+            <!-- Navigation Buttons -->
+            <button id="modal-prev" class="absolute left-3 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white rounded-full p-3 shadow-lg cursor-pointer" onclick="navigateModal(-1)" aria-label="Previous image">
+                &#10094;
+            </button>
+            <button id="modal-next" class="absolute right-3 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white rounded-full p-3 shadow-lg cursor-pointer" onclick="navigateModal(1)" aria-label="Next image">
+                &#10095;
+            </button>
+
+            <!-- Modal Image -->
+            <img id="modal-image" src="" alt="Product Image" class="object-contain w-full h-full max-h-[80vh] rounded-lg mb-4">
+
+            <!-- Thumbnails -->
+            <div id="modal-thumbnails" class="flex overflow-x-auto gap-2 mt-4">
+                <!-- Thumbnails will be inserted here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let modalImages = [];
+    let modalCurrentIndex = 0;
+    let modalProductId = '';
+
+    function openModal(productId) {
+        const modal = document.getElementById('image-modal');
+        const modalImage = document.getElementById('modal-image');
+        const mainImage = document.getElementById(`main-image-${productId}`);
+        let imagesData = mainImage.getAttribute('data-images');
+
+        // Handle HTML entities in the JSON string
+        imagesData = imagesData.replace(/&quot;/g, '"').replace(/&#x27;/g, "'");
+        modalImages = JSON.parse(imagesData);
+
+        // Normalize URLs to compare correctly
+        modalImages = modalImages.map(url => new URL(url, window.location.origin).href);
+        const mainImageUrl = new URL(mainImage.src, window.location.origin).href;
+
+        modalCurrentIndex = modalImages.indexOf(mainImageUrl);
+        if (modalCurrentIndex === -1) {
+            modalCurrentIndex = 0;
+        }
+        modalProductId = productId;
+
+        // Set modal image
+        modalImage.src = modalImages[modalCurrentIndex];
+
+        // Show/hide navigation buttons
+        document.getElementById('modal-prev').style.display = modalImages.length > 1 ? 'block' : 'none';
+        document.getElementById('modal-next').style.display = modalImages.length > 1 ? 'block' : 'none';
+
+        // Populate thumbnails
+        const thumbnailsContainer = document.getElementById('modal-thumbnails');
+        thumbnailsContainer.innerHTML = ''; // Clear previous thumbnails
+        modalImages.forEach((imageUrl, index) => {
+            const thumb = document.createElement('img');
+            thumb.src = imageUrl;
+            thumb.className = 'w-20 h-20 object-cover rounded-lg cursor-pointer border-2';
+            thumb.style.borderColor = index === modalCurrentIndex ? 'blue' : 'transparent';
+            thumb.onclick = () => {
+                modalCurrentIndex = index;
+                updateModalImage();
+            };
+            thumbnailsContainer.appendChild(thumb);
+        });
+
+        // Add keydown event listener
+        document.addEventListener('keydown', handleKeyDown);
+
+        // Show the modal
+        modal.classList.remove('hidden');
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('image-modal');
+        modal.classList.add('hidden');
+
+        // Remove keydown event listener
+        document.removeEventListener('keydown', handleKeyDown);
+
+        // Update main image when modal is closed
+        if (modalProductId) {
+            const mainImage = document.getElementById(`main-image-${modalProductId}`);
+            mainImage.src = modalImages[modalCurrentIndex];
+        }
+    }
+
+    function navigateModal(direction) {
+        modalCurrentIndex = (modalCurrentIndex + direction + modalImages.length) % modalImages.length;
+        updateModalImage();
+    }
+
+    function updateModalImage() {
+        const modalImage = document.getElementById('modal-image');
+        modalImage.src = modalImages[modalCurrentIndex];
+
+        // Update thumbnail borders
+        const thumbnailsContainer = document.getElementById('modal-thumbnails');
+        const thumbnails = thumbnailsContainer.getElementsByTagName('img');
+        for (let i = 0; i < thumbnails.length; i++) {
+            thumbnails[i].style.borderColor = i === modalCurrentIndex ? 'blue' : 'transparent';
+        }
+    }
+
+    function updateMainImage(imageUrl, productId) {
+        const mainImage = document.getElementById(`main-image-${productId}`);
+        mainImage.src = imageUrl;
+    }
+
+    function handleKeyDown(event) {
+        if (event.key === 'ArrowLeft') {
+            navigateModal(-1);
+        } else if (event.key === 'ArrowRight') {
+            navigateModal(1);
+        } else if (event.key === 'Escape') {
+            closeModal();
+        }
+    }
+</script>
+{% endblock %}

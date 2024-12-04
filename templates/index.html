@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="bg-[#F8F8F8] w-full h-screen flex items-center">
+    <div class="container mx-auto px-6 lg:px-12">
+        <!-- Title -->
+        <div class="text-center mb-4">
+            <h2 class="text-[#222] text-2xl md:text-3xl lg:text-4xl tracking-wide">
+                <span class="font-extrabold">Why Choose</span> <span class="text-blue-600 algerian">SAAS TEKS INVEST?</span>
+            </h2>
+        </div>
+
+        <!-- Main Content Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center h-[calc(100%-80px)]">
+            <!-- Image Section -->
+            <div class="flex justify-center">
+                <img src="{% static 'images/saas-min.jpg' %}" alt="SAAS TEKS INVEST"
+                     class="rounded-xl shadow-lg object-cover w-full md:w-[400px] h-[300px]">
+            </div>
+
+            <!-- Features Section -->
+            <div class="space-y-6">
+                <div class="flex items-start gap-4">
+                    <i class="fas fa-check-circle text-blue-600 text-2xl"></i>
+                    <div>
+                        <h3 class="text-lg font-bold text-[#222]">Reliability</h3>
+                        <p class="text-sm text-[#7B7B7B] leading-relaxed">
+                            Sourcing high-quality textiles with a proven track record of excellence.
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4">
+                    <i class="fas fa-leaf text-green-600 text-2xl"></i>
+                    <div>
+                        <h3 class="text-lg font-bold text-[#222]">Eco-conscious Practices</h3>
+                        <p class="text-sm text-[#7B7B7B] leading-relaxed">
+                            Committed to sustainability and environmentally friendly production.
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4">
+                    <i class="fas fa-handshake text-yellow-600 text-2xl"></i>
+                    <div>
+                        <h3 class="text-lg font-bold text-[#222]">Customized Solutions</h3>
+                        <p class="text-sm text-[#7B7B7B] leading-relaxed">
+                            Tailored offerings designed to meet unique market needs and standards.
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4">
+                    <i class="fas fa-lightbulb text-purple-600 text-2xl"></i>
+                    <div>
+                        <h3 class="text-lg font-bold text-[#222]">Innovative Solutions</h3>
+                        <p class="text-sm text-[#7B7B7B] leading-relaxed">
+                            Utilizing advanced technology to produce innovative textile materials.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

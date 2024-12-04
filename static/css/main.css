@@ -1,0 +1,16 @@
+nav .group:hover .dropdown {
+    display: block; /* Show dropdown on hover */
+}
+
+nav .dropdown {
+    display: none; /* Hide by default */
+}
+
+nav .group:hover .dropdown,
+nav .dropdown:hover {
+    display: block; /* Keep visible when hovering over dropdown */
+}
+
+.algerian{
+   font-family: "Algerian", sans-serif;
+}

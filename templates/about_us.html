@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section id="about" class="bg-[#F8F8F8] text-[#222] py-10">
+    <div class="container mx-auto text-center">
+
+        <!-- Grid Layout for Two Columns -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+            {% for about in about_us %}
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <!-- Image Section -->
+                <img src="{{ about.image.url }}" alt="{{ about.title }}" class="w-full h-64 object-cover mb-4">
+
+                <!-- Content Section -->
+                <div class="p-4">
+                    <!-- Title -->
+                    <h2 class="text-2xl font-bold mb-4 text-[#222]">{{ about.title }}</h2>
+
+                    <!-- Description -->
+                    <p class="text-[#7B7B7B] text-base leading-relaxed">
+                        {{ about.description }}
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+{% endblock %}
