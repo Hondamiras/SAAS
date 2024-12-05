@@ -1,24 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<section id="about" class="bg-[#F8F8F8] text-[#222] py-10">
+<section id="about" class="bg-[#F8F8F8] text-[#222] py-8">
     <div class="container mx-auto text-center">
-
-        <!-- Grid Layout for Two Columns -->
+        <!-- Grid Layout -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
             {% for about in about_us %}
-            <div class="bg-white rounded-lg shadow-md overflow-hidden max-w-[250px] mx-auto">
+            <div class="bg-white rounded-md shadow-md overflow-hidden">
                 <!-- Image Section -->
-                <img src="{{ about.image.url }}" alt="{{ about.title }}" class="w-full h-40 object-cover mb-3">
+                <img src="{{ about.image.url }}" alt="{{ about.title }}" class="w-full h-48 object-cover">
 
                 <!-- Content Section -->
-                <div class="p-3">
+                <div class="p-4">
                     <!-- Title -->
-                    <h2 class="text-lg font-bold mb-2 text-[#222]">{{ about.title }}</h2>
+                    <h2 class="text-xl font-semibold mb-2 text-[#222]">{{ about.title }}</h2>
 
                     <!-- Description -->
                     <p class="text-[#7B7B7B] text-sm leading-relaxed">
-                        {{ about.description }}
+                        {{ about.description|truncatewords:20 }}
                     </p>
                 </div>
             </div>

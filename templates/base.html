@@ -70,7 +70,7 @@
     <div class="container mx-auto flex items-center justify-between px-6">
         <!-- Left: Logo -->
         <div class="flex items-center space-x-2 text-black font-medium text-2xl">
-            <a href="{% url 'index' %}" class="flex items-center space-x-2">
+            <a href="{% url 'about_us' %}" class="flex items-center space-x-2">
                 <!-- Logo Image -->
                 <img src="{% static 'images/logosaas.png' %}" alt="Logo" class="h-10 w-auto">
                 <!-- Text -->
@@ -80,7 +80,7 @@
 
         <!-- Center: Navigation Menu -->
         <nav class="hidden lg:flex space-x-6 text-[#7B7B7B] font-medium">
-            <a href="{% url 'about_us' %}" class="{% if request.path == '/about/' %}text-[#222]{% else %}hover:text-[#222] text-[#7B7B7B]{% endif %} text-sm md:text-base">About Us</a>
+            <a href="{% url 'about_page' %}" class="{% if request.path == '/about/' %}text-[#222]{% else %}hover:text-[#222] text-[#7B7B7B]{% endif %} text-sm md:text-base">About Us</a>
             <a href="{% url 'our_facilities' %}" class="{% if request.path == '/our_facilities/' %}text-[#222]{% else %}hover:text-[#222] text-[#7B7B7B]{% endif %} text-sm md:text-base">Our Facilities</a>
             <a href="{% url 'our_products' %}" class="{% if request.path == '/our_products/' %}text-[#222]{% else %}hover:text-[#222] text-[#7B7B7B]{% endif %} text-sm md:text-base">Our Products</a>
             <a href="{% url 'news_updates' %}" class="{% if request.path == '/news_updates/' %}text-[#222]{% else %}hover:text-[#222] text-[#7B7B7B]{% endif %} text-sm md:text-base">News & Updates</a>
