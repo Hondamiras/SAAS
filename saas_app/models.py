@@ -91,7 +91,6 @@ class Category(models.Model):
 
 class Product(models.Model):
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE, verbose_name='Категория')
-    image = models.ImageField(upload_to='products/', verbose_name='Изображение', blank=True, null=True)
     name = models.CharField(max_length=100, verbose_name='Название')
     description = models.TextField(verbose_name='Описание')
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
