@@ -10,6 +10,17 @@
     <link rel="icon" href="{% static 'images/logosaas.png' %}">
     <link href="https://fonts.cdnfonts.com/css/algeria" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clifford: '#da373d',
+          }
+        }
+      }
+    }
+  </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
         /* Ensure full width and height for desktop screens */
@@ -218,5 +229,17 @@
             });
         });
     </script>
+
+
+
+
+
+<style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+    }
+  </style>
 </body>
 </html>
