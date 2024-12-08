@@ -7,6 +7,7 @@ name = "pypi"
 django = "*"
 pillow = "*"
 drf-yasg = "*"
+gunicorn = "*"
 
 [dev-packages]
 
