@@ -1,14 +1,10 @@
-#!/bin/bash
 
 echo "BUILD START"
 
-# Установить pipenv, если он не установлен
-pip install pipenv
-
-# Установить зависимости из Pipfile
-pipenv install --deploy --ignore-pipfile
+# Установить зависимости из requirements.txt
+python3.9 -m pip install -r requirements.txt
 
 # Собрать статические файлы
-pipenv run python manage.py collectstatic --noinput --clear
+python3.9 manage.py collectstatic --noinput --clear
 
 echo "BUILD END"
