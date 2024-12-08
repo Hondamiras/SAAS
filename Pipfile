@@ -8,6 +8,7 @@ django = "*"
 pillow = "*"
 drf-yasg = "*"
 gunicorn = "*"
+whitenoise = "*"
 
 [dev-packages]
 
