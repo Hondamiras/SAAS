@@ -21,7 +21,6 @@ class Facility(models.Model):
     image = models.ImageField(upload_to='facilities/', verbose_name='Изображение')
     title = models.CharField(max_length=100, verbose_name='Заголовок')
     description = models.TextField(verbose_name='Описание', blank=True, null=True)
-    time_create = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
 
     def __str__(self):
@@ -33,6 +32,17 @@ class Facility(models.Model):
 
     def get_absolute_url(self):
         return reverse('facility_detail', kwargs={'facility_slug': self.slug})
+
+class FacilityImages(models.Model):
+    facility = models.ForeignKey(Facility, on_delete=models.CASCADE, verbose_name='Услуга')
+    image = models.ImageField(upload_to='facilities/', verbose_name='Изображение')
+
+    def __str__(self):
+        return f"Image for {self.facility.title}"
+
+    class Meta:
+        verbose_name = 'Фото Услуги'
+        verbose_name_plural = 'Фото Услуг'
 
 class News(models.Model):
     image = models.ImageField(upload_to='news/', blank=True, null=True, verbose_name='Изображение')
