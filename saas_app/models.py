@@ -75,7 +75,7 @@ class Category(models.Model):
         KNITTED = 'KN', 'Knitted'
         FABRIC = 'FAB', 'Fabric'
 
-    name = models.CharField(max_length=100, verbose_name='Название')
+    name = models.CharField(max_length=100, verbose_name='Название', null=True, blank=True)
     image = models.ImageField(upload_to='categories/', verbose_name='Изображение')
     status = models.CharField(max_length=3, choices=Status.choices, default=Status.KNITTED, verbose_name='Тип материала')
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
