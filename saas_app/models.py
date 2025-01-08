@@ -83,7 +83,7 @@ class Category(models.Model):
     updated = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
 
     def __str__(self):
-        return self.name
+        return self.name if self.name else 'Новая категория'
 
     def get_absolute_url(self):
         return reverse('category_products', kwargs={'category_slug': self.slug})
@@ -108,7 +108,7 @@ class Product(models.Model):
     updated = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
 
     def __str__(self):
-        return self.name
+        return self.name if self.name else 'Новый продукт'
 
     def get_absolute_url(self):
         return reverse('product_detail', kwargs={'product_slug': self.slug})
