@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import AboutUs, Facility, News, Category, Product, ProductImage
+from .models import AboutUs, Facility, News, Category, Product, ProductImage, FacilityImages
 from django.utils.safestring import mark_safe
 
 # Admin for AboutUs
@@ -15,6 +15,9 @@ class FacilityAdmin(admin.ModelAdmin):
     list_display = ('title',)
     list_display_links = ('title',)
     prepopulated_fields = {'slug': ('title',)}
+
+class FacilityImagesAdmin(admin.ModelAdmin):
+    list_display = ('facility', 'image')
 
 # Admin for News
 class NewsAdmin(admin.ModelAdmin):
@@ -50,3 +53,4 @@ class ProductImageAdmin(admin.ModelAdmin):
 admin.site.register(AboutUs, AboutUsAdmin)
 admin.site.register(Facility, FacilityAdmin)
 admin.site.register(News, NewsAdmin)
+admin.site.register(FacilityImages, FacilityImagesAdmin)

@@ -2,24 +2,24 @@
 
 {% block content %}
 <section class="bg-[#F8F8F8] h-screen flex items-center">
-    <div class="container mx-auto px-4 flex flex-col justify-center items-center">
+    <div class="container mx-auto flex flex-col justify-center items-center pb-10">
         <!-- Title -->
-        <div class="text-center mb-6">
-            <h2 class="text-2xl md:text-3xl font-bold text-[#222]">Our Facilities</h2>
+        <div class="text-center mb-4 space-y-2 w-full mt-10">
+            <h2 class="text-2xl md:text-3xl font-bold text-[#222] mb-10">Our Facilities</h2>
         </div>
 
         <!-- Facilities Cards Container -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full" style="max-height: 75%;">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 w-full">
             {% for facility in facilities|slice:":8" %} <!-- Limit facilities to 8 items -->
             <a href="{{ facility.get_absolute_url }}" class="block bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 hover:shadow-xl">
                 <!-- Facility Image -->
                 {% if facility.image %}
-                <img src="{{ facility.image.url }}" alt="{{ facility.title }}" class="w-full h-32 object-cover">
+                <img src="{{ facility.image.url }}" alt="{{ facility.title }}" class="w-full h-48 object-cover">
                 {% endif %}
 
                 <!-- Facility Content -->
-                <div class="p-4 text-center">
-                    <h3 class="text-sm md:text-base font-semibold text-[#222] mb-2">{{ facility.title }}</h3>
+                <div class="text-center p-4">
+                    <h3 class="text-base md:text-base font-semibold text-[#222]">{{ facility.title }}</h3>
                 </div>
             </a>
             {% empty %}

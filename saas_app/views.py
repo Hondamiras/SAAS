@@ -102,26 +102,4 @@ def fabrics(request):
     fabric_products = Category.fabric.all()
     return render(request, 'fabrics.html', {'fabric_products': fabric_products})
 
-def category_products(request, category_slug):
-    # Fetch the category based on its slug
-    category = get_object_or_404(Category, slug=category_slug)
-
-    # Get all products in this category
-    products = Product.objects.filter(category=category)
-
-    # Resolve the correct URL dynamically
-    if category.status == Category.Status.FABRIC:
-        back_url = reverse('fabrics')
-    elif category.status == Category.Status.KNITTED:
-        back_url = reverse('our_product_details')
-    else:
-        back_url = reverse('categories_list')
-
-    context = {
-        'category': category,
-        'products': products,
-        'back_url': back_url,
-    }
-
-    return render(request, 'category_products.html', context)
 

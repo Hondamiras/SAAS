@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<section id="products" class="py-4 bg-gray-100 h-screen flex items-center justify-center">
+<section id="products" class="py-4 bg-gray-100 h-screen flex items-center justify-center mt-4 mb-4">
     <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Our Products</h2>
 
         <!-- Product Cards Container -->
-        <div class="flex justify-center gap-6 flex-wrap">
+        <div class="flex justify-center gap-20 flex-wrap">
 
             <!-- Product Card 1: Fabric Products -->
-            <a href="{% url 'fabrics' %}" class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 hover:shadow-xl w-56 block">
-                <div class="w-full h-56">
+            <a href="{% url 'fabrics' %}" class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 hover:shadow-xl w-72 sm:w-80 lg:w-96 block">
+                <div class="w-full h-64 sm:h-72 lg:h-80">
                     <img src="{% static 'images/fabrics.png' %}" alt="Fabric Products" class="w-full h-full object-cover">
                 </div>
                 <div class="p-4 text-center">
@@ -19,9 +19,9 @@
             </a>
 
             <!-- Product Card 2: Knitted Products -->
-            <a href="{% url 'our_product_details' %}" class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 hover:shadow-xl w-56 block">
-                <div class="w-full h-56">
-                    <img src="{% static 'images/photoshoped-clothes.jpg' %}" alt="Knitted Products" class="w-full h-full object-cover">
+            <a href="{% url 'our_product_details' %}" class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 hover:shadow-xl w-72 sm:w-80 lg:w-96 block">
+                <div class="w-full h-64 sm:h-72 lg:h-80">
+                    <img src="{% static 'images/photoshoped-clothes.jpg' %}" alt="Knitted Products" class="w-full h-full object-cover object-center">
                 </div>
                 <div class="p-4 text-center">
                     <h3 class="text-lg font-semibold text-gray-800 mb-1">Ready made garments</h3>
