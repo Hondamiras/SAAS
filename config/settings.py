@@ -18,7 +18,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = True
 
 # ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1']
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['saasteksinvest.uz', 'www.saasteksinvest.uz', '164.90.214.109']
 
 # Application definition
 
@@ -148,3 +148,13 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://saasteksinvest.uz',
+    'https://www.saasteksinvest.uz',
+]
+
+
+CSRF_COOKIE_SECURE = True  # Only send CSRF cookie over HTTPS
+SESSION_COOKIE_SECURE = True  # Only send session cookie over HTTPS
+
