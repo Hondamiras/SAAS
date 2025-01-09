@@ -68,7 +68,7 @@ def contact_view(request):
                 f'Message from {name}',
                 message,
                 email,
-                ['khondamiras@gmail.com'],  # Replace with your own email or recipient list
+                ['khondamiras@gmail.com', 'info@saasteks.uz'],  # Replace with your own email or recipient list
                 fail_silently=False,
             )
 
