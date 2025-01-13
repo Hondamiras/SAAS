@@ -152,6 +152,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CSRF_TRUSTED_ORIGINS = [
     'https://saasteksinvest.uz',
     'https://www.saasteksinvest.uz',
+    'https://saasteks.uz',
+    'https://www.saasteks.uz',
 ]
 
 
