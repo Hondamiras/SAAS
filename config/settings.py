@@ -160,3 +160,4 @@ CSRF_TRUSTED_ORIGINS = [
 CSRF_COOKIE_SECURE = True  # Only send CSRF cookie over HTTPS
 SESSION_COOKIE_SECURE = True  # Only send session cookie over HTTPS
 
+CSRF_FAILURE_VIEW = "saas_app.views.csrf_failure_view"

@@ -89,8 +89,22 @@
         <!-- Contact Form -->
         <div class="w-full md:w-1/2">
             <h2 class="text-2xl font-bold mb-6 text-center">GET IN TOUCH</h2>
-            <div class="border border-[#333] text-[#333] px-8 pb-10 rounded-xl shadow-lg ">
 
+            <!-- Cookie Warning (Placed Above Form Container) -->
+            {% if cookie_warning %}
+            <div class="mb-6">
+                <div class="bg-red-100 border-l-4 border-red-600 text-red-800 px-4 py-4 rounded-lg shadow-md flex items-start" role="alert">
+                    <div>
+                        <strong class="font-bold block">Cookies are disabled!</strong>
+                        <p class="leading-tight">
+                            Please enable cookies in your browser settings to use this form.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="border border-[#333] text-[#333] px-8 pb-10 rounded-xl shadow-lg ">
                 <form method="POST" action="{% url 'contact' %}" class="space-y-6">
                     {% csrf_token %}
                     {{ form.non_field_errors }}
@@ -118,6 +132,19 @@
                     </button>
                 </form>
             </div>
+            <!-- Script to Detect Cookies -->
+            <script>
+                // Function to check if cookies are enabled
+                function areCookiesEnabled() {
+                    // Attempt to set a test cookie
+                    document.cookie = "testcookie=1; SameSite=Strict";
+                    const cookiesEnabled = document.cookie.indexOf("testcookie=") !== -1;
+
+                    // Remove the test cookie
+                    document.cookie = "testcookie=1; Max-Age=0";
+                    return cookiesEnabled;
+                }
+            </script>
         </div>
 
         <!-- Map Section -->

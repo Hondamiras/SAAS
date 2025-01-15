@@ -55,6 +55,11 @@ class NewsDetailView(DetailView):
 
 
 def contact_view(request):
+    cookie_warning = False  # Default: assume cookies are enabled
+
+    if 'HTTP_COOKIE' not in request.META:  # Check if cookies are sent by the browser
+        cookie_warning = True
+
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
@@ -77,9 +82,19 @@ def contact_view(request):
     else:
         form = ContactForm()
 
-    return render(request, 'contact.html', {'form': form})
+    return render(request, 'contact.html', {'form': form, 'cookie_warning': cookie_warning})
 
+def custom_permission_denied_view(request, exception=None):
+    """
+    Renders a 403.html template for any 403 Forbidden errors.
+    """
+    return render(request, '403.html', status=403)
 
+def csrf_failure_view(request, reason="", template_name="403.html"):
+    """
+    Renders a 403.html template specifically for CSRF failures.
+    """
+    return render(request, template_name, status=403)
 
 
 def our_products(request):
