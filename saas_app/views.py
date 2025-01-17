@@ -71,8 +71,7 @@ def contact_view(request):
             # Send an email or save the data to the database
             send_mail(
                 f'Message from {name}',
-                f'Name: {name}\nEmail: {email}\nMessage: {message}\nDate: {date.today()}',
-                message,
+                f'Message: {message}\nEmail: {email}\nDate: {date.today()}',  # Replace with your own email or message,
                 email,
                 ['khondamiras@gmail.com', 'info@saasteks.uz'],  # Replace with your own email or recipient list
                 fail_silently=False,
