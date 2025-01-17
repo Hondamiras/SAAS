@@ -72,6 +72,8 @@ def contact_view(request):
             send_mail(
                 f'Message from {name}',
                 f'Name: {name}\nEmail: {email}\nMessage: {message}\nDate: {date.today()}',
+                message,
+                email,
                 ['khondamiras@gmail.com', 'info@saasteks.uz'],  # Replace with your own email or recipient list
                 fail_silently=False,
             )
