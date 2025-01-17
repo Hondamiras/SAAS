@@ -7,7 +7,7 @@ from .forms import ContactForm
 from .models import Facility, News, Product, Category, AboutUs
 from django.contrib import messages
 from django.urls import reverse
-
+from datetime import date
 
 def index(request):
     return render(request, 'index.html')
@@ -71,8 +71,7 @@ def contact_view(request):
             # Send an email or save the data to the database
             send_mail(
                 f'Message from {name}',
-                message,
-                email,
+                f'Name: {name}\nEmail: {email}\nMessage: {message}\nDate: {date.today()}',
                 ['khondamiras@gmail.com', 'info@saasteks.uz'],  # Replace with your own email or recipient list
                 fail_silently=False,
             )
