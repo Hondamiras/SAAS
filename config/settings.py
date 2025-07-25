@@ -32,6 +32,7 @@ INSTALLED_APPS = [
 
     #my apps
     'saas_app.apps.SaasAppConfig',
+    'django_recaptcha',
 ]
 
 MIDDLEWARE = [
@@ -123,16 +124,18 @@ USE_TZ = True
 
 # settings.py
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_SSL = False
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp-relay.brevo.com"
+EMAIL_PORT = 2525
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = config('EMAIL_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_PASS')
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_HOST_USER = "8c290c001@smtp-brevo.com"
+EMAIL_HOST_PASSWORD = "xsmtpsib-d3e5549c89076c44a8b106e06d5419d1f1e77132e339ed9624be56f91c0faca2-JRN9DWtyE2V7QIwf"  # yangi key
+DEFAULT_FROM_EMAIL = "no-reply@saasteks.uz"
+EMAIL_TIMEOUT = 10
 
-
+RECAPTCHA_PUBLIC_KEY = "6LeBqY4rAAAAAA87KfZJcESjHBXK1Dm6NFEEPRbw"
+RECAPTCHA_PRIVATE_KEY = "6LeBqY4rAAAAAKuOH7QbR7tm_sS-tmu2z2a6lW7V"
+RECAPTCHA_USE_SSL = True
 
 STATIC_URL = 'static/'
 
