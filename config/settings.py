@@ -15,7 +15,7 @@ environ.Env.read_env()
 # SECRET_KEY = 'django-insecure-6#04-pfbi1h#s&dl9a!c4ndc4zbdyrw#uema@rd$!=sy95!%!$'
 SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1']
 ALLOWED_HOSTS = ['saasteksinvest.uz', 'www.saasteksinvest.uz', '164.90.214.109', 'saasteks.uz', 'www.saasteks.uz', 'webmail.saasteks.uz']
