@@ -79,77 +79,88 @@
         </div>
     </div>
 </div>
-
-
 </section>
 
 <!-- Contact Section -->
-<!-- Contact Section -->
 <section id="contact" class="bg-[#F8F8F8] py-12 flex items-center">
     <div class="container mx-auto px-6 lg:px-12 flex flex-col md:flex-row gap-12">
+
         <!-- Contact Form -->
         <div class="w-full md:w-1/2">
             <h2 class="text-2xl font-bold mb-6 text-center">GET IN TOUCH</h2>
 
-            <!-- Cookie Warning (Placed Above Form Container) -->
-            {% if cookie_warning %}
+            <!-- Django Messages -->
+            {% if messages %}
             <div class="mb-6">
-                <div class="bg-red-100 border-l-4 border-red-600 text-red-800 px-4 py-4 rounded-lg shadow-md flex items-start" role="alert">
-                    <div>
-                        <strong class="font-bold block">Cookies are disabled!</strong>
-                        <p class="leading-tight">
-                            Please enable cookies in your browser settings to use this form.
-                        </p>
+                {% for message in messages %}
+                    <div class="px-4 py-3 rounded relative
+                        {% if message.tags == 'success' %} bg-green-100 border-l-4 border-green-500 text-green-700
+                        {% elif message.tags == 'error' %} bg-red-100 border-l-4 border-red-600 text-red-800
+                        {% else %} bg-blue-100 border-l-4 border-blue-500 text-blue-700
+                        {% endif %}"
+                        role="alert">
+                        <p>{{ message }}</p>
                     </div>
-                </div>
+                {% endfor %}
             </div>
             {% endif %}
 
-
+            <!-- Cookie Warning -->
+            {% if cookie_warning %}
+            <div class="mb-6">
+                <div class="bg-red-100 border-l-4 border-red-600 text-red-800 px-4 py-4 rounded-lg shadow-md" role="alert">
+                    <strong class="font-bold block">Cookies are disabled!</strong>
+                    <p>Please enable cookies in your browser settings to use this form.</p>
+                </div>
+            </div>
+            {% endif %}
 
             <!-- Form Container -->
             <div class="border border-[#333] text-[#333] px-8 pb-10 rounded-xl shadow-lg">
                 <form method="POST" action="{% url 'contact' %}" class="space-y-6">
                     {% csrf_token %}
-                    {{ form.non_field_errors }}
+                    {% if form.non_field_errors %}
+                        <div class="bg-red-100 text-red-700 p-3 rounded">{{ form.non_field_errors }}</div>
+                    {% endif %}
 
                     <div>
                         <label for="id_name" class="text-sm block mb-2">Your Name</label>
                         {{ form.name }}
-                        {{ form.name.errors }}
+                        {% for error in form.name.errors %}
+                            <p class="text-red-600 text-sm mt-1">{{ error }}</p>
+                        {% endfor %}
                     </div>
 
                     <div>
                         <label for="id_email" class="text-sm block mb-2">Your Email</label>
                         {{ form.email }}
-                        {{ form.email.errors }}
+                        {% for error in form.email.errors %}
+                            <p class="text-red-600 text-sm mt-1">{{ error }}</p>
+                        {% endfor %}
                     </div>
 
                     <div>
                         <label for="id_message" class="text-sm block mb-2">Message</label>
                         {{ form.message }}
-                        {{ form.message.errors }}
+                        {% for error in form.message.errors %}
+                            <p class="text-red-600 text-sm mt-1">{{ error }}</p>
+                        {% endfor %}
                     </div>
 
-                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-lg font-medium transition duration-300">
+                    <div>
+                        <label class="text-sm block mb-2">Verification</label>
+                        {{ form.captcha }}
+                        {% for error in form.captcha.errors %}
+                            <p class="text-red-600 text-sm mt-1">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-lg font-medium transition duration-300">
                         Send Message
                     </button>
                 </form>
             </div>
-
-            <!-- Script to Detect Cookies -->
-            <script>
-                // Function to check if cookies are enabled
-                function areCookiesEnabled() {
-                    // Attempt to set a test cookie
-                    document.cookie = "testcookie=1; SameSite=Strict";
-                    const cookiesEnabled = document.cookie.indexOf("testcookie=") !== -1;
-
-                    // Remove the test cookie
-                    document.cookie = "testcookie=1; Max-Age=0";
-                    return cookiesEnabled;
-                }
-            </script>
         </div>
 
         <!-- Map Section -->
@@ -159,10 +170,11 @@
                 <iframe
                     src="https://yandex.ru/map-widget/v1/?ll=69.253533%2C41.330479&z=14&pt=69.253533,41.330479,pm2rdl"
                     class="w-full h-[300px] md:h-[471px] border-0 rounded-xl"
-                    allowfullscreen
-                ></iframe>
+                    allowfullscreen>
+                </iframe>
             </div>
         </div>
     </div>
 </section>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 {% endblock %}
