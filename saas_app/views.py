@@ -55,34 +55,45 @@ class NewsDetailView(DetailView):
 
 
 def contact_view(request):
-    cookie_warning = False  # Default: assume cookies are enabled
-
-    if 'HTTP_COOKIE' not in request.META:  # Check if cookies are sent by the browser
-        cookie_warning = True
+    cookie_warning = 'HTTP_COOKIE' not in request.META
 
     if request.method == 'POST':
         form = ContactForm(request.POST)
-        if form.is_valid():
-            # Process the form data
+        if form.is_valid():  # reCAPTCHA shu yerda ham tekshirildi
             name = form.cleaned_data['name']
             email = form.cleaned_data['email']
             message = form.cleaned_data['message']
 
-            # Send an email or save the data to the database
-            send_mail(
-                f'Message from {name}',
-                f'Message: {message}\nEmail: {email}\nDate: {date.today()}',  # Replace with your own email or message,
-                email,
-                ['khondamiras@gmail.com', 'info@saasteks.uz'],  # Replace with your own email or recipient list
-                fail_silently=False,
-            )
+            subject = f'Message from {name}'
+            full_message = f"""
+Message:
+{message}
 
-            messages.success(request, 'Your message has been sent successfully!')
-            return redirect('contact')  # Replace 'contact' with the name of your URL pattern for this page
+From: {name} <{email}>
+Date: {date.today()}
+"""
+            try:
+                send_mail(
+                    subject,
+                    full_message,
+                    None,  # DEFAULT_FROM_EMAIL ishlatiladi
+                    ['khondamiras@gmail.com', 'info@saasteks.uz'],
+                    fail_silently=False,
+                )
+                messages.success(request, 'Your message has been sent successfully!')
+                return redirect('contact')
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            except Exception as e:
+                messages.error(request, f'Error sending email: {e}')
     else:
         form = ContactForm()
 
-    return render(request, 'contact.html', {'form': form, 'cookie_warning': cookie_warning})
+    return render(request, 'contact.html', {
+        'form': form,
+        'cookie_warning': cookie_warning
+    })
+
 
 def custom_permission_denied_view(request, exception=None):
     """
