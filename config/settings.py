@@ -129,7 +129,7 @@ EMAIL_HOST = "smtp-relay.brevo.com"
 EMAIL_PORT = 2525
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "8c290c001@smtp-brevo.com"
-EMAIL_HOST_PASSWORD = "xsmtpsib-d3e5549c89076c44a8b106e06d5419d1f1e77132e339ed9624be56f91c0faca2-JRN9DWtyE2V7QIwf"  # yangi key
+EMAIL_HOST_PASSWORD = "xsmtpsib-d3e5549c89076c44a8b106e06d5419d1f1e77132e339ed9624be56f91c0faca2-5qAC3dBzUDYHPvOs"  # yangi key
 DEFAULT_FROM_EMAIL = "no-reply@saasteks.uz"
 EMAIL_TIMEOUT = 10
 
