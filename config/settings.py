@@ -128,8 +128,8 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp-relay.brevo.com"
 EMAIL_PORT = 2525
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "apikey"
-EMAIL_HOST_PASSWORD = "xsmtpsib-d3e5549c89076c44a8b106e06d5419d1f1e77132e339ed9624be56f91c0faca2-5qAC3dBzUDYHPvOs"  # yangi key
+EMAIL_HOST_USER = config("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")  # yangi key
 DEFAULT_FROM_EMAIL = "no-reply@saasteks.uz"
 EMAIL_TIMEOUT = 10
 
