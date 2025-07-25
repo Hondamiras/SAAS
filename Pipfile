@@ -11,11 +11,8 @@ whitenoise = "*"
 django-environ = "*"
 dj-database-url = "*"
 psycopg2-binary = "*"
-<<<<<<< HEAD
 gunicorn = "*"
-=======
 decouple = "*"
->>>>>>> 9f5bd248db21cd51d6c22b0d85596e06158afe4a
 
 [dev-packages]
 
